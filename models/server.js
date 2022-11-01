@@ -21,7 +21,9 @@ class Server {
         //CORS
         this.app.use(cors());
 
-        
+        //Lectura y parseo del body
+        this.app.use(express.json());
+
         //Use: Palabra clave para saber que es un middleware
         //Directorio público
         this.app.use(express.static('public'));
