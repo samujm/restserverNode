@@ -5,6 +5,7 @@ const usuariosGet = (req = request, res = response)=> { //res = resoonse es para
     
     const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
 
+    //http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&page=10
     res.json({
         msg:'get API - controlador',
         q,
