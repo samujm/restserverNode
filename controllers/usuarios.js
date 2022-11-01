@@ -1,9 +1,17 @@
-const { response } = require('express');
+const { response, request } = require('express');
 
 
-const usuariosGet = (req, res = response)=> { //res = resoonse es para saber que tipo de dato es y vsc muestre las ayudas
+const usuariosGet = (req = request, res = response)=> { //res = resoonse es para saber que tipo de dato es y vsc muestre las ayudas
+    
+    const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
+
     res.json({
-        msg:'get API - controlador'
+        msg:'get API - controlador',
+        q,
+        nombre,
+        apikey,
+        page,
+        limit
     });
 }
 
@@ -19,8 +27,12 @@ const usuariosPost = (req, res = response)=> {
 }
 
 const usuariosPut = (req, res = response)=> {
+
+    const {id} = req.params;
+
     res.status(500).json({
-        msg:'put API - controlador'
+        msg:'put API - controlador',
+        id
     });
 }
 
