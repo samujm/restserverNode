@@ -8,7 +8,11 @@ const usuariosGet = async (req = request, res = response)=> { //res = resoonse e
     //Desestructurar lo que viene en el query
     // const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
 
-    const usuarios = await Usuario.find();
+    const {limite =5, desde = 0} = req.query;
+
+    const usuarios = await Usuario.find()
+        .skip(Number( desde ))
+        .limit(Number( limite ));
 
 
     //http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&page=10
