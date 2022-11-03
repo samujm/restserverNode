@@ -14,9 +14,11 @@ const usuariosGet = async (req = request, res = response)=> { //res = resoonse e
         .skip(Number( desde ))
         .limit(Number( limite ));
 
+    const total = await Usuario.countDocuments();
 
     //http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&page=10
     res.json({
+        total,
         usuarios
     });
 }
