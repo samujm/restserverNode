@@ -3,7 +3,7 @@ const {Router} = require('express');
 const { check } = require('express-validator');
 
 const { validarCampos } = require('../middlewares/validar-campos');
-const { esRolValido, emailExiste } = require('../helpers/db-validators');
+const { esRolValido, emailExiste, existeUsuarioPorId } = require('../helpers/db-validators');
 
 const { 
     usuariosGet,
@@ -28,7 +28,12 @@ router.post('/', [
     validarCampos
 ], usuariosPost);
 
-router.put('/:id', usuariosPut);
+router.put('/:id',[
+    check('id', 'No es un id Valido').isMongoId(),
+    check('id').custom( existeUsuarioPorId ),
+    check('rol').custom( esRolValido ),
+    validarCampos //No olvidar poner la funcion para validar los campos en todas, esto rompe que continue a la ruta usuariosPut si existe un error
+], usuariosPut);
 
 router.patch('/', usuariosPatch);
 
