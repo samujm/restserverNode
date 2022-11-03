@@ -3,19 +3,17 @@ const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
 
 
-const usuariosGet = (req = request, res = response)=> { //res = resoonse es para saber que tipo de dato es y vsc muestre las ayudas
+const usuariosGet = async (req = request, res = response)=> { //res = resoonse es para saber que tipo de dato es y vsc muestre las ayudas
     //Se pueden declarar valores por defecto
     //Desestructurar lo que viene en el query
-    const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
+    // const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
+
+    const usuarios = await Usuario.find();
+
 
     //http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&page=10
     res.json({
-        msg:'get API - controlador',
-        q,
-        nombre,
-        apikey,
-        page,
-        limit
+        usuarios
     });
 }
 
@@ -61,10 +59,7 @@ const usuariosPut = async (req, res = response)=> {
 
     const usuario = await Usuario.findByIdAndUpdate(id,resto, {new:true});
 
-    res.json({
-        msg:'put API - controlador',
-        usuario
-    });
+    res.json(usuario);
 }
 
 const usuariosPatch = (req, res = response)=> {
