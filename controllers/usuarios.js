@@ -9,17 +9,28 @@ const usuariosGet = async (req = request, res = response)=> { //res = resoonse e
     // const {q, nombre = 'No name', apikey, page = 1, limit} = req.query;
 
     const {limite =5, desde = 0} = req.query;
+    const query = {estado:true};
 
-    const usuarios = await Usuario.find()
+    // const usuarios = await Usuario.find(query) //Mando la condición en find para que solo traiga los datos que tienen estado igual a true
+    //     .skip(Number( desde ))
+    //     .limit(Number( limite ));
+
+    // const total = await Usuario.countDocuments(query);//Mando la condición en countDocuments para que solo traiga los datos que tienen estado igual a true
+
+    //Se coloca el await para que no se ejecute el res.json antes de objeter el resultado de las dos promesas 
+    const [total, usuarios] = await Promise.all([ //Permite mandar un arreglo con todas las promesas que quiero que se ejecuten
+        Usuario.countDocuments(query),
+        Usuario.find(query) //Mando la condición en find para que solo traiga los datos que tienen estado igual a true
         .skip(Number( desde ))
-        .limit(Number( limite ));
+        .limit(Number( limite ))
+    ]) 
 
-    const total = await Usuario.countDocuments();
 
     //http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&page=10
     res.json({
         total,
         usuarios
+        // resp
     });
 }
 
