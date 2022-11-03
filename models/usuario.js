@@ -43,4 +43,11 @@ const UsuarioSchema = Schema({
 });
 
 
+//Sobreescribir el metodo toJSON, debe ser una funcion normal
+UsuarioSchema.methods.toJSON = function(){
+    const { __v, password, ...usuario } = this.toObject(); //Saca __v y password y todos los demas los almacena en usuario
+    return usuario; //Retorna usuario, pero unicamente los datos que quiere mostrar
+}
+
+
 module.exports = model('Usuario', UsuarioSchema); //Nombre que le quiero dar y el esquema
