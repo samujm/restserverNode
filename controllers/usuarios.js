@@ -89,6 +89,8 @@ const usuariosDelete = async (req, res = response)=> {
 
     const {id} = req.params;
 
+    const uid = req.uid;
+
     //Fisicamente lo borramos (no recomentable)
     // const usuario = await Usuario.findByIdAndDelete(id);
 
@@ -97,7 +99,8 @@ const usuariosDelete = async (req, res = response)=> {
 
 
     res.json({
-        usuario
+        usuario,
+        uid
     });
 }
 
