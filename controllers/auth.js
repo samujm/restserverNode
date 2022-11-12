@@ -1,6 +1,7 @@
 const { response } = require("express");
 const Usuario = require('../models/usuario');
 const bcryptjs = require('bcryptjs');
+const { generarJWT } = require("../helpers/generar-jwt");
 
 
 const login = async(req, res = response)=>{
@@ -31,15 +32,15 @@ const login = async(req, res = response)=>{
             });
         }
 
-
-
         //General el JWT
-
+        const token = await generarJWT(usuario.id);
 
 
         //Solo se debe ejecutar un solo res.json en todo el flujo del controlador
         res.json({
-            msg: 'Login ok',
+            // msg: 'Login ok',
+            usuario,
+            token
         });
         
     } catch (error) {
