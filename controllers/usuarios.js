@@ -101,7 +101,7 @@ const usuariosDelete = async (req, res = response)=> {
 
     res.json({
         usuario,
-        usuarioAutenticado
+        // usuarioAutenticado
         // ,uid
     });
 }
